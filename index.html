@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrices</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+
+        .matrix {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            margin: 2px;
+            background-color: #fff;
+            width: 66px;
+            height: 66px;
+        }
+
+        .cell {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script type="module">
+        const container = document.getElementById('container');
+        import { piDigits } from './config.js'
+
+        const colorMap = {
+            '0': '#fa594e',
+            '1': '#e6b0aa',
+            '2': '#c195f3',
+            '3': '#a9cce3',
+            '4': '#5dcf46',
+            '5': '#f9e79f',
+            '6': '#46b7f0',
+            '7': '#e752e3',
+            '8': '#85929e',
+            '9': '#e78b3a'
+        };
+
+        for (let i = 0; i < 9; i++) {
+            const row = document.createElement('div');
+            row.classList.add('row');
+
+            for (let j = 0; j < 9; j++) {
+                const matrix = document.createElement('div');
+                matrix.classList.add('matrix');
+
+                const matrixIndex = i * 9 + j;
+                const startIndex = matrixIndex * 9;
+
+                for (let k = 0; k < 9; k++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    const digit = piDigits[startIndex + k] || '';
+                    cell.textContent = digit;
+
+                    // Apply background color based on digit
+                    if (digit) {
+                        cell.style.backgroundColor = colorMap[digit];
+                    }
+
+                    matrix.appendChild(cell);
+                }
+                row.appendChild(matrix);
+            }
+            container.appendChild(row);
+        }
+    </script>
+</body>
+</html>
